@@ -1,0 +1,21 @@
+{
+  "name": "@zyno-io/yarn-helper",
+  "version": "1.0.0",
+  "description": "Bootstrap Corepack and run a project's Yarn with scoped registry authentication and conservative fetch retries.",
+  "type": "module",
+  "bin": { "yarn-helper": "bin/yarn-helper.mjs" },
+  "exports": { ".": "./src/index.mjs" },
+  "files": ["bin", "src", "README.md", "LICENSE"],
+  "engines": { "node": "^22.22.2 || ^24.15.0 || >=26.0.0" },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "test:smoke": "node tests/smoke.mjs",
+    "check": "node --check bin/yarn-helper.mjs && node --check src/index.mjs && node --check src/bootstrap.mjs && node --check src/runner.mjs"
+  },
+  "dependencies": { "yaml": "^2.9.1" },
+  "repository": { "type": "git", "url": "git+https://github.com/zyno-io/yarn-helper.git" },
+  "bugs": { "url": "https://github.com/zyno-io/yarn-helper/issues" },
+  "homepage": "https://github.com/zyno-io/yarn-helper#readme",
+  "publishConfig": { "access": "public", "registry": "https://registry.npmjs.org/" },
+  "license": "MIT"
+}
