@@ -53,7 +53,7 @@ jobs:
             npm test
             npm pack --pack-destination /tmp
             set -- /tmp/zyno-io-yarn-helper-*.tgz
-            YARN_HELPER_SMOKE_PACKAGE="$1" npm run test:smoke
+            HELPER_SMOKE_PACKAGE="$1" npm run test:smoke
           '
 
   publish:

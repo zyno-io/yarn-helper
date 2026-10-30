@@ -69,7 +69,7 @@ try {
   const tokenFile = join(root, 'npm-token');
   await writeFile(tokenFile, secret, { mode: 0o600 });
   const cli = fileURLToPath(new URL('../bin/yarn-helper.mjs', import.meta.url));
-  const packaged = process.env.YARN_HELPER_SMOKE_PACKAGE;
+  const packaged = process.env.HELPER_SMOKE_PACKAGE;
   const command = packaged ? [npmCli, 'exec', '--yes', '--registry=https://registry.npmjs.org/', '--package', resolve(packaged), '--', 'yarn-helper'] : [cli];
   const options = ['--corepack-prefix', prefix, '--npm-registry', privateRegistry.url, '--npm-token-file', tokenFile];
   const run = async args => {
