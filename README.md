@@ -8,6 +8,14 @@ npx --yes @zyno-io/yarn-helper@1 install --immutable
 
 The helper installs Corepack when needed, enables persistent Yarn shims and respects `packageManager`, `devEngines.packageManager` and the project's `yarnPath`. It does not edit dependency declarations, lockfiles or project configuration. Normal lifecycle scripts, including `tsf-install`, still run.
 
+If `.npmrc` routes the `@zyno-io` scope to a private registry, override that scope for the public bootstrap command:
+
+```sh
+npx --yes --@zyno-io:registry=https://registry.npmjs.org/ @zyno-io/yarn-helper@1 install --immutable
+```
+
+This override applies to npm's bootstrap request. Yarn keeps the dependency registries declared by the project.
+
 Requires Node `^22.22.2`, `^24.15.0` or `>=26.0.0`, npm and a writable Node installation prefix. CI and Docker should normally use `node:26-alpine`; GitHub Actions should select `26.x` with `check-latest: true`.
 
 ## CI
