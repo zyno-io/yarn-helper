@@ -16,12 +16,16 @@ concurrency:
 
 jobs:
   test:
-    name: Node 26 on ${{ matrix.os }}
+    name: Node 26 on ${{ matrix.os }} (npm ${{ matrix.npm }})
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
+        npm: [bundled]
+        include:
+          - os: ubuntu-latest
+            npm: latest
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -30,6 +34,8 @@ jobs:
           check-latest: true
           cache: npm
           package-manager-cache: false
+      - if: matrix.npm == 'latest'
+        run: npm install --global npm@latest
       - run: npm ci
       - run: npm run check
       - run: npm test

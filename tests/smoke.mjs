@@ -32,7 +32,9 @@ async function registry(name, privateRegistry) {
   await writeFile(join(packageDirectory, 'package.json'), JSON.stringify({ name, version: '1.0.0', main: 'index.js' }));
   await writeFile(join(packageDirectory, 'index.js'), 'module.exports = 1;\n');
   const packed = await execute(process.execPath, [npmCli, 'pack', packageDirectory, '--ignore-scripts', '--json', '--pack-destination', root], { env });
-  const filename = JSON.parse(packed.stdout)[0].filename;
+  const packages = JSON.parse(packed.stdout);
+  const details = Array.isArray(packages) ? packages[0] : packages[name];
+  const filename = details.filename;
   const tarball = await readFile(join(root, filename));
   const integrity = `sha512-${createHash('sha512').update(tarball).digest('base64')}`;
   const server = createServer((request, response) => {
